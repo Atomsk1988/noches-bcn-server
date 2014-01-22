@@ -1,0 +1,62 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'C:\\Program Files\\nodejs\\\\node.exe',
+1 verbose cli   'C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'install',
+1 verbose cli   'forego' ]
+2 info using npm@1.1.61
+3 info using node@v0.8.9
+4 verbose node symlink C:\Program Files\nodejs\\node.exe
+5 verbose read json C:\Users\Mama\noches-bcn-server\package.json
+6 warn package.json application-name@0.0.1 No README.md file found!
+7 verbose read json C:\Users\Mama\noches-bcn-server\node_modules\express\package.json
+8 verbose read json C:\Users\Mama\noches-bcn-server\node_modules\jade\package.json
+9 verbose read json C:\Users\Mama\noches-bcn-server\node_modules\mongodb\package.json
+10 verbose read json C:\Users\Mama\noches-bcn-server\node_modules\monk\package.json
+11 verbose read json C:\Users\Mama\noches-bcn-server\node_modules\passport\package.json
+12 verbose from cache C:\Users\Mama\noches-bcn-server\package.json
+13 verbose readDependencies using package.json deps
+14 verbose cache add [ 'forego', null ]
+15 silly cache add name=undefined spec="forego" args=["forego",null]
+16 verbose parsed url { pathname: 'forego', path: 'forego', href: 'forego' }
+17 silly lockFile e7fd44a7-forego forego
+18 verbose lock forego C:\Users\Mama\AppData\Roaming\npm-cache\e7fd44a7-forego.lock
+19 silly lockFile e7fd44a7-forego forego
+20 verbose addNamed [ 'forego', '' ]
+21 verbose addNamed [ null, '' ]
+22 silly lockFile b2389992-forego forego@
+23 verbose lock forego@ C:\Users\Mama\AppData\Roaming\npm-cache\b2389992-forego.lock
+24 silly addNameRange { name: 'forego', range: '', hasData: false }
+25 verbose url raw forego
+26 verbose url resolving [ 'https://registry.npmjs.org/', './forego' ]
+27 verbose url resolved https://registry.npmjs.org/forego
+28 info trying registry request attempt 1 at 20:11:14
+29 http GET https://registry.npmjs.org/forego
+30 http 404 https://registry.npmjs.org/forego
+31 silly registry.get cb [ 404,
+31 silly registry.get   { date: 'Wed, 22 Jan 2014 19:11:14 GMT',
+31 silly registry.get     server: 'CouchDB/1.5.0 (Erlang OTP/R15B03)',
+31 silly registry.get     'content-type': 'application/json',
+31 silly registry.get     'cache-control': 'max-age=0',
+31 silly registry.get     'content-length': '52',
+31 silly registry.get     'accept-ranges': 'bytes',
+31 silly registry.get     via: '1.1 varnish',
+31 silly registry.get     age: '0',
+31 silly registry.get     'x-served-by': 'cache-lo81-LHR',
+31 silly registry.get     'x-cache': 'MISS',
+31 silly registry.get     'x-cache-hits': '0',
+31 silly registry.get     'x-timer': 'S1390417874.353714705,VS0,VE124',
+31 silly registry.get     'keep-alive': 'timeout=10, max=50',
+31 silly registry.get     connection: 'Keep-Alive' } ]
+32 silly lockFile b2389992-forego forego@
+33 error 404 'forego' is not in the npm registry.
+33 error 404 You should bug the author to publish it
+33 error 404
+33 error 404 Note that you can also install from a
+33 error 404 tarball, folder, or http url, or git url.
+34 error System Windows_NT 6.1.7601
+35 error command "C:\\Program Files\\nodejs\\\\node.exe" "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "install" "forego"
+36 error cwd C:\Users\Mama\noches-bcn-server
+37 error node -v v0.8.9
+38 error npm -v 1.1.61
+39 error code E404
+40 verbose exit [ 1, true ]

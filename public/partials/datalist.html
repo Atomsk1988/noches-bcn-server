@@ -1,0 +1,11 @@
+<h2>{{originData + ' list:'}}</h2>
+<table border="1">
+	<tr><th ng-repeat="(header, value) in d[0]">{{ header }}</th></tr>
+	<tr ng-repeat="disco in d" id="{{'disco_' + $index}}" ng-click="selected=$index">
+		<td ng-repeat="value in disco" title="{{value}}">{{value}}</td>
+	</tr>
+</table>
+<div objecteditor>
+</div>
+
+
