@@ -7,8 +7,8 @@ var admin = angular.module('admin', ['ngRoute'])
 	if(offline){
 		var url = 'http://localhost:3000/';
 	}else{
-		var url = 'http://thawing-savannah-4527.herokuapp.com/main';
-		
+		var url = 'http://thawing-savannah-4527.herokuapp.com/';
+
 	}
 	var base_data = [];
 	base_data['discos'] = null;
