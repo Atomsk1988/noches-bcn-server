@@ -22,7 +22,7 @@ exports.insertDisco = function(db){
         var collection = db.get('discos');
         var newdata = req.param('data');
         console.log(newdata);
-        if(newdata._id==null){
+        if(newdata._id==''){
             console.log('insert');
             //INSERT
             newdata._id = null
