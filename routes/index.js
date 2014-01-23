@@ -28,7 +28,7 @@ exports.insertDisco = function(db){
             newdata._id = null
             newdata.image = null;
             console.log(newdata);
-            collection.insert(newdata, function(err, inserted){
+            collection.insert({name:newdata.name, email:newdata.email}, function(err, inserted){
                 res.json(inserted);
             });
         }else{
