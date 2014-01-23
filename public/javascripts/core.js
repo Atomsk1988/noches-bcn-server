@@ -3,8 +3,13 @@
 var admin = angular.module('admin', ['ngRoute'])
 .service('dataService', ['$http', function($http) {
 
-
-	var url = 'http://localhost:3000/';
+	offline = false;
+	if(offline){
+		var url = 'http://localhost:3000/';
+	}else{
+		var url = 'http://thawing-savannah-4527.herokuapp.com/main';
+		
+	}
 	var base_data = [];
 	base_data['discos'] = null;
 
