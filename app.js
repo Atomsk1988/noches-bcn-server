@@ -17,7 +17,7 @@ var offline = false;
 if(offline){
 	var db = monk('localhost:27017/noches-bcn');
 }else{
-	var db = monk(MONGOHQ_URL);
+	var db = monk(process.env.MONGOHQ_URL);
 }
 
 
