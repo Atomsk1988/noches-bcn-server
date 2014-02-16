@@ -12,7 +12,7 @@ var fs = require('fs');
 // New Code
 var mongo = require('mongodb');
 var monk = require('monk');
-var offline = true;
+var offline = false;
 
 if(offline){
 	var db = monk('localhost:27017/noches-bcn');
