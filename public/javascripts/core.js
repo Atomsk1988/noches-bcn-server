@@ -3,7 +3,7 @@
 var admin = angular.module('admin', ['ngRoute'])
 .service('dataService', ['$http', function($http) {
 
-	var offline = true;
+	var offline = false;
 	if(offline){
 		var url = 'http://localhost:3000/';
 	}else{
