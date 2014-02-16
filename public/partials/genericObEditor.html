@@ -1,0 +1,9 @@
+ <table>
+    <button ng-click="pushNew()">Add</button>
+    <tr ng-repeat="item in vip">
+        <td><input type="text" ng-model="item.name" value="item.name" ></td>
+        <td><input type="text" ng-model="item.price" value="{{item.price}}" ></td>
+        <td><button ng-click="popItem($index)">x</button></td>
+    </tr>
+</table>
+<button ng-click="log(vip)">VIP?/LOG</button>

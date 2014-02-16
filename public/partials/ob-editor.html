@@ -1,14 +1,22 @@
 <form ng-transclusion name="ob_editor" class="app-form" enctype="multipart/form-data" ng-model='user'>
+    <p>
+        <button ng-click="reset()">RESET</button>
+        <button ng-click="insert(user,(user._id=='')?'save':'update')">
+            <span ng-hide="user._id==''">Update</span><span ng-hide="user._id!=''">Insert</span>
+        </button>
+        <button ng-click="log(vip)">VIP OUTER</button>
+    </p>
     <header>Información de discoteca:</header>
-	<input type="hidden" ng-model="user._id" />
-	Name:   <input type="text"  ng-model="user.name" /><br/>
+    <input type="hidden" ng-model="user._id" />
+    Name:   <input type="text"  ng-model="user.name" /><br/>
     E-mail: <input type="email" ng-model="user.email" /><br/>
     <img src=""/><br />
     Image:  <input type="file" id="fileupload" name="files[]" ng-hide="user._id==''">
     <div ng-hide="user._id!=''">guarda primero los datos basicos de la discoteca</div><br/>
-
-    <button ng-click="reset()">RESET</button>
-    <button ng-click="insert(user,(user._id=='')?'save':'update')">{{(user._id=='')?'SAVE':'UPDATE';}}</button>
+    
+    
+    
+    </div>
 
 
 </form>	

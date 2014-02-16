@@ -27,8 +27,9 @@ exports.insertDisco = function(db){
             //INSERT
             newdata._id = null
             newdata.image = null;
+            newdata.vip=[];
             console.log(newdata);
-            collection.insert({name:newdata.name, email:newdata.email}, function(err, inserted){
+            collection.insert({name:newdata.name, email:newdata.email, vip:newdata.vip}, function(err, inserted){
                 res.json(inserted);
             });
         }else{
@@ -85,7 +86,6 @@ exports.formLogin = function(db){
 
         collection.find({"username":user, "password":password}, 
             function (err, docs){
-                console.log(err,docs.length)
                 if(err==null && docs.length==1){
                     //res.location("main");
                     res.redirect('main');
