@@ -1,4 +1,5 @@
-<form ng-transclusion name="ob_editor" class="app-form" enctype="multipart/form-data" ng-model='user'>
+<form ng-transclusion name="ob_editor" class="app-form" enctype="multipart/form-data" ng-model='d.user'>
+    <!-- 
     <p>
         <button ng-click="reset()">RESET</button>
         <button ng-click="insert(user,(user._id=='')?'save':'update')">
@@ -6,13 +7,14 @@
         </button>
         <button ng-click="log(vip)">VIP OUTER</button>
     </p>
+    -->
     <header>Información de discoteca:</header>
-    <input type="hidden" ng-model="user._id" />
-    Name:   <input type="text"  ng-model="user.name" /><br/>
-    E-mail: <input type="email" ng-model="user.email" /><br/>
-    <img src=""/><br />
-    Image:  <input type="file" id="fileupload" name="files[]" ng-hide="user._id==''">
-    <div ng-hide="user._id!=''">guarda primero los datos basicos de la discoteca</div><br/>
+    <input type="hidden" ng-model="data['discos'][selected_disco]._id" />
+    Name:   <input type="text"  ng-model="data['discos'][selected_disco].name"/><br/>
+    E-mail: <input type="email" ng-model="data['discos'][selected_disco].email"/><br/>
+    <img src="{{'uploads/disco/'+data['discos'][selected_disco]._id+'.png'}}"/><br />
+    Image:  <input type="file" id="fileupload" name="files[]" ng-hide="data['discos'][selected_disco]._id==''">
+    <div ng-hide="data['discos'][selected_disco]._id!=''">guarda primero los datos basicos de la discoteca</div><br/>
     
     
     

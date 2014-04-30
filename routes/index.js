@@ -17,6 +17,21 @@ exports.discos = function(db){
         );
     }
 }
+exports.parties = function(db){
+    return function(req,res){
+        var collection = db.get('fiestas');
+
+        collection.find({}, function (err, docs){
+                console.log(err,docs.length+' results')
+                if(err==null){
+                    res.json(docs);
+                }else{
+                    res.send("error");
+                }
+            }
+        );
+    }
+}
 exports.insertDisco = function(db){
     return function(req, res){
         var collection = db.get('discos');
@@ -53,6 +68,60 @@ exports.insertDisco = function(db){
         //console.log(req.param('data'));
     }
 }
+exports.insertParty = function(db){
+    return function(req, res){
+        var collection = db.get('fiestas');
+        var newdata = req.param('data');
+        console.log(newdata);
+        if(newdata._id==''){
+            console.log('insert');
+            //INSERT
+            newdata._id = null
+            newdata.prices=[];
+            console.log(newdata);
+            collection.insert({disco_id:newdata.disco_id, name:newdata.name, prices:newdata.prices}, function(err, inserted){
+                res.json(inserted);
+            });
+        }else{
+            console.log('update');
+            //UPDATE
+            collection.update({_id:newdata._id,name:''}, newdata, function(err, inserted){
+                res.json(inserted);
+            });
+        }       
+        /*
+        temp_ob = new Disco(req.param('data'));
+        collection.save(function(error, Disco){
+            console.log(Disco);
+
+            res.json(ob);
+        });
+        */
+        //console.log(req.param('data'));
+    }
+}
+exports.deleteDisco = function(db){
+    return function(req,res){
+
+        //TENEMOS QUE SACAR LA URL DEL PATH A Lo path/:id
+        var collection = db.get('discos');
+        var data = req.params.id;
+        //var result = collection.find({_id:data.substr(1)});
+        collection.remove({_id:data.substr(1)});
+        res.send('true');
+    }
+}
+exports.deleteParty = function(db){
+    return function(req,res){
+
+        //TENEMOS QUE SACAR LA URL DEL PATH A Lo path/:id
+        var collection = db.get('parties');
+        var data = req.params.id;
+        //var result = collection.find({_id:data.substr(1)});
+        collection.remove({_id:data.substr(1)});
+        res.send('true');
+    }
+}
 exports.updateDisco = function(db){
 
 }
@@ -64,7 +133,7 @@ exports.imageUpload = function(fs){
             ext = req.files.files[0].name.substr(-3);
 
             var newPath = "./public/uploads/"+req.body.type+"/"+req.body.id+"."+ext;
-           
+            
             fs.writeFile(newPath, imageData, function (err) {
                 if(err){console.log(err)}else{res.send(newPath)};
             });
@@ -99,71 +168,3 @@ exports.formLogin = function(db){
 exports.main = function(req, res){
     res.sendfile('./views/main.html');
 }
-/*
-exports.fiestas = function(db){
-    return function(req,res){
-        var collection = db.get('discos');
-
-        collection.find({}, function (err, docs){
-                console.log(err,docs.length+' results')
-                if(err==null){
-                    res.json(docs);
-                }else{
-                    res.send("error");
-                }
-            }
-        );
-    }
-}
-*/
-/*
-
-exports.helloworld = function(req, res){
-  res.render('helloworld', { title: 'Hello, World!' });
-};
-
-exports.userlist = function(db) {
-    return function(req, res) {
-        var collection = db.get('usercollection');
-        collection.find({},{},function(e,docs){
-            res.render('userlist', {
-                "userlist" : docs
-            });
-        });
-    };
-};
-
-
-exports.newuser = function(req, res){
-  res.render('newuser', { title: 'Add New User' });
-};
-exports.adduser = function(db) {
-    return function(req, res) {
-
-        // Get our form values. These rely on the "name" attributes
-        var userName = req.body.username;
-        var password = req.body.password;
-
-        // Set our collection
-        var collection = db.get('usercollection');
-
-        // Submit to the DB
-        collection.insert({
-            "user" : userName,
-            "password" : password
-        }, function (err, doc) {
-            if (err) {
-                // If it failed, return error
-                res.send("There was a problem adding the information to the database.");
-            }
-            else {
-                // If it worked, set the header so the address bar doesn't still say /adduser
-                res.location("userlist");
-                // And forward to success page
-                res.redirect("userlist");
-            }
-        });
-
-    }
-}
-*/

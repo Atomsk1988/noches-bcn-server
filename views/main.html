@@ -3,22 +3,27 @@
 
 <!-- ASSIGN OUR ANGULAR MODULE -->
 <html ng-app="admin">
-<head>
-	<!-- META -->
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1"><!-- Optimize mobile viewport -->
+	<head>
+		<!-- META -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1"><!-- Optimize mobile viewport -->
 
-	<title>Node/Angular Todo App</title>
+		<title>Node/Angular Todo App</title>
 
-	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
-	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css">
-	<link rel="stylesheet" href="stylesheets/style.css">
+		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css">
+		<link rel="stylesheet" href="stylesheets/style.css">
 
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script><!-- load jquery -->
-	<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script><!-- load bootstrap -->
-	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.8/angular.min.js"></script><!-- load angular -->
-	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.8/angular-route.min.js"></script><!-- routes angular -->
-	<script src="javascripts/core.js"></script>
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script><!-- load jquery -->
+		<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script><!-- load bootstrap -->
+		<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.8/angular.min.js"></script><!-- load angular -->
+		<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.8/angular-route.min.js"></script><!-- routes angular -->
+		<script src="javascripts/dataService.js"></script>
+		<!--
+		-->
+		<!-- <script src="javascripts/objectEditor.js"></script> -->
+		<!-- <script src="javascripts/datalist.js"></script> -->
+		<script src="javascripts/core.js"></script>
 
 </head>
 <!-- SET THE CONTROLLER AND GET ALL TODOS -->
@@ -29,9 +34,141 @@
 		<header>
 			<h1>Dashboard</h1>
 		</header>
-		<div datalist origin="discos" class="col-md-4"></div>
+		<div origin="discos" class="col-md-4">
+			<!-- DATALIST -->
+			<div id="datalist" ng-controller="datalistController">
+				<h2>Discos list {{selected_disco}}</h2>
+				<table border="1">
+					<thead>
+						<tr><th ng-repeat="(header, value) in data['discos'][0]" ng-if="isInColsList(header)">{{ header }}</th></tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="disco in data['discos'] track by $index" id="{{'disco_' + $index}}" ng-click="select_disco($index)">
+							<td ng-repeat="(header, value) in disco track by $index" title="{{value}}" ng-if="isInColsList(header)">{{value}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<!-- DISCO EDITOR -->
+			<div id="objecteditor" ng-controller="objectEditorCtrl">
+				<button ng-click="saveData('discos')">Save</button>
+				<button ng-click=" addData('discos')">New</button>
+				<button ng-click=" popData('discos')">Delete</button>
+				<form name="ob_editor" class="app-form" enctype="multipart/form-data">
+					<div class="col-cover" ng-show="(selected_disco=='nan')"></div>
+				    <header>Información de discoteca:</header>
+				    <input type="hidden" ng-model="data['discos'][selected_disco]._id" />
+				    Name:   <input type="text"  ng-model="data['discos'][selected_disco].name"/><br/>
+				    E-mail: <input type="email" ng-model="data['discos'][selected_disco].email"/><br/>				    
+				    <img id="disco_img" ng-src="{{'uploads/disco/'+image_name}}"><br />
+				    <input type="file" id="fileupload_disco" name="files[]" ng-hide="data['discos'][selected_disco]._id==''">
+				    <div ng-hide="data['discos'][selected_disco]._id!=''">guarda primero los datos basicos de la discoteca</div>
+				    
 
+				</form>
+			</div>
+			<!-- VIP EDITOR -->
+			<div id="vip_editor">
+				<div class="col-cover" ng-show="(selected_disco=='nan')"></div>
+				<h2>VIP</h2>
+			    <button ng-click="data['discos'][selected_disco].vip.push({name:'', price:''})">Add</button>
+				<table border="0">
+					<tbody>
+					    <tr ng-repeat="item in data['discos'][selected_disco].vip">
+					        <td><input type="text" ng-model="item.name" value="item.name" ></td>
+					        <td><input type="text" ng-model="item.price" value="{{item.price}}" ></td>
+					        <td><button ng-click="data['discos'][selected_disco].vip.splice($index,1)">x</button></td>
+					    </tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div origin="fiestas" class="col-md-4">
+			<div class="col-cover" ng-show="(selected_disco=='nan')"></div>
+			<div id="datalist" ng-controller="partieslistController">
+				<h2>Parties list {{selected_party}}</h2>
+				<table border="1">
+					<thead>
+						<tr><th ng-repeat="(header, value) in data['parties'][0]" ng-if="isInColsList(header)">{{ header }}</th></tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="party in data['parties'] | filter:{disco_id:data['discos'][selected_disco]._id}" id="{{'party_' + $index}}" ng-click="select_party(party)">
+							<td ng-repeat="(header, value) in party track by $index" title="{{value}}" ng-if="isInColsList(header)">{{value}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="tabbable tabls.left">
+				<ul class="nav nav-tabs">
+					<li ng-class="{active:main.active.tab == 'info'}"><a id="info-tab" ng-click="main.active.tab = 'info'">Informacion</a></li>
+					<li ng-class="{active:main.active.tab == 'prices'}"><a id="prices-tab" ng-click="main.active.tab = 'prices'">Precios</a></li>
+				</ul>
+				<div class="tab-content">
+					<div ng-switch="main.active.tab">
+						<div ng-switch-when="info">
+							<div id="parties_editor" ng-controller="partiesObController">
+								<form name="parties_ed" class="app-form" entype="multipart/form-data">
+									<button ng-click="saveData('parties')">Save</button>
+									<button ng-click=" addData('parties')">New</button>
+									<button ng-click=" popData('parties')">Delete</button>
+									<input type="hidden" ng-model="data['parties'][selected_party]._id"/>
+									<input type="hidden" ng-model="data['parties'][selected_party].disco_id"/>
+									<img src=""><br/>
+									<input type="text"ng-model="data['parties'][selected_party].name" placeholder="Titulo"><br/>
+									<br/>
+									<textarea placeholder="Descripcion:" ng-model="data['parties'][selected_party].descripcion"></textarea>
+									<textarea placeholder="Extra(p.e. etiqueta, o informacion indispensable):" ng-model="data['parties'][selected_party].extra"></textarea><br/>
+									<!-- 
+									<label for="extra">Informacion adicional:</label><input type="text" ng-model="data['parties'][selected_party].extra"><br/>
+									-->
+									<label for="inicio">Fecha y hora de cierre de lista: </label>
+									<input type="date" name="fecha" ng-model="data['parties'][selected_party].date"/><input type="time" name="inicio" ng-model="data['parties'][selected_party].closeListTime"/>
+
+								</form>
+							</div>
+						</div>
+						<div ng-switch-when="prices">
+							Prices
+							<table>
+								<tbody>
+									<tr ng-repat="group in data['parties'][selected_party].prices">
+										<td>
+										<!-- 
+										<table>
+											<thead>
+												<input type="text" ng-model="group.title" value="group.title" placeholder="Chicos o chicas"/>
+												<button type="button" ng-click="data['parties'][selected_party].prices.priceList.push({ini:'', end:'', price:'',value:''})">+</button>
+											</thead>
+											<tbody ng-repeat="item in group.priceList">
+												<tr>
+													<td>
+														<input type="date" ng-model="item.ini" value="item.ini"/> - 
+														<input type="date" ng-model="item.end" value="item.end"/>
+														<input type="number" ng-model="item.price" value="item.price" />
+														<button ng-click="">x</button>	
+													</td>
+												</tr>
+												<tr>
+													<td>
+														<input type="text" ng-model="item.value" value="item.value" />
+													</td>
+												</tr>
+											</tbody>
+										</table>
+										-->
+										</td>
+									</tr>
+									
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
 		<!--
+
 		<div id="todo-list" class="row">
 			<div class="col-sm-4 col-sm-offset-4">
 
@@ -58,6 +195,7 @@
 		</div>
 	-->
 	</div>
+	<script src="javascripts/main.js"></script>
 	<script src="vendor/jquery/fileupload/jquery.ui.widget.js"></script>
 	<script src="vendor/jquery/fileupload/jquery.iframe-transport.js"></script>
 	<script src="vendor/jquery/fileupload/jquery.fileupload.js"></script>

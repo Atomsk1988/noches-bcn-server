@@ -45,8 +45,10 @@ if ('development' == app.get('env')) {
 
 app.get('/', routes.login(db));
 app.get('/discos', routes.discos(db));
-//app.get('/fiestas', routes.fiestas(db));
+app.get('/parties', routes.parties(db));
 app.get('/main', routes.main);
+
+//app.get('/fiestas', routes.fiestas(db));
 //app.get('/users', user.list);
 //app.get('/helloworld', routes.helloworld);
 //app.get('/userlist', routes.userlist(db));
@@ -54,8 +56,11 @@ app.get('/main', routes.main);
 
 app.post('/login', routes.formLogin(db));
 app.post('/discos', routes.insertDisco(db));
+app.post('/parties', routes.insertParty(db));
 app.post('/imageUpload', routes.imageUpload(fs));
 
+app.del('/discos/:id', routes.deleteDisco(db));
+app.del('/parties/:id', routes.deleteParty(db));
 //app.post('/adduser', routes.adduser(db));
 
 http.createServer(app).listen(app.get('port'), function(){

@@ -1,5 +1,5 @@
 body {
-  padding: 50px;
+  padding: 0 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
@@ -9,38 +9,104 @@ a {
 .table_highlight{
 	background-color:#CCC;
 }
-div[datalist] table{
+.col-cover{
 	width:100%;
+	z-index:999;
+	height:100%;
+	background-color: rgba(255,255,255,0.4);
+	position:absolute;
+}
+.container{
+	margin:0;
+}
+#datalist table{
+	width:350px;
 	height:200px;
 	overflow-y: scroll;
 	display:block;
 }
-div[datalist] table tr th:nth-child(1),div[datalist] table tr td:nth-child(1){
+#datalist table tr th:nth-child(1),#datalist table tr td:nth-child(1){
 	width:50px;
 	display: block;
 	overflow: hidden;
 }
-div[datalist] table tr th:nth-child(2),div[datalist] table tr td:nth-child(2){
+#datalist table tr th:nth-child(2),#datalist table tr td:nth-child(2){
 	width:40%;
 	overflow: hidden;
 }
-div[datalist] table tr th:nth-child(3),div[datalist] table tr td:nth-child(3){
+#datalist table tr th:nth-child(3),#datalist table tr td:nth-child(3){
 	width:50%;
 	overflow: hidden;
 }
-div[objecteditor]{
+#objecteditor{
 	position:relative;
 	padding:5px;
 }
-div[objecteditor] header{
+#objecteditor button{
+	width:110px;
+}
+#objecteditor header{
 	 font-size: 16px;
 	 margin:10px 0;
 	 font-weight: bold;
 }
-div[objecteditor] img{
+#objecteditor img{
 	width:80px;
 	height:80px;
 	position:absolute;
 	top:40px;
 	right:10px;
+	cursor: pointer;
+}
+#objecteditor input[type="file"]{
+	display:none;
+}
+#vip_editor button{
+	margin-left:259px;
+}
+#vip_editor table{
+	width:350px;
+	height:200px;
+	overflow-y: scroll;
+	display:block;
+	border:1px solid #000;
+}
+#vip_editor table td{
+	border:1px solid #000;
+}
+#vip_editor table tr td:first-child{
+	width:162px;
+}
+#vip_editor table tbody tr td input{
+	border:0;
+}
+#vip_editor h2, #vip_editor table button{
+	display:inline-block;
+	margin-left:0;
+}
+#parties_editor{
+	padding:6px;
+	overflow-y:scroll;
+	height:350px;
+}
+.tab-content{
+	border:1px solid #CCC;
+	height:350px;
+}
+#parties_editor img{
+	width:100%;
+	height:150px;
+	background-color: #CCC;
+}
+#parties_editor button{
+	width:104px;
+	margin:5px 0;
+}
+#parties_editor input{
+	width:100%;
+	margin:4px 0;
+}
+#parties_editor textarea{
+	width:100%;
+	height:150px;
 }
